@@ -1,0 +1,987 @@
+soft Windows [Version 10.0.26200.9278]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\aayus>use ("Aayush")
+'use' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\aayus>mongosh "mongodb+srv://cluster1.2fwrwg0.mongodb.net/" --apiVersion 1 --username 2024pceacsaayush03_db_user
+Enter password: ****************
+Current Mongosh Log ID: 6aa1039b17689699174b2339
+Connecting to:          mongodb+srv://<credentials>@cluster1.2fwrwg0.mongodb.net/?appName=mongosh+2.10.0
+Using MongoDB:          8.0.32 (API Version 1)
+Using Mongosh:          2.10.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+Atlas atlas-xawl8m-shard-0 [primary] test> use ("aggex")
+switched to db aggex
+Atlas atlas-xawl8m-shard-0 [primary] aggex> use cluster1
+switched to db cluster1
+Atlas atlas-xawl8m-shard-0 [primary] cluster1> use aggex
+switched to db aggex
+Atlas atlas-xawl8m-shard-0 [primary] aggex> const categories = [
+|     "Electronics",
+|     "Mobiles",
+|     "Laptops",
+|     "Home Appliances",
+|     "Fashion",
+|     "Books",
+|     "Sports",
+|     "Beauty",
+|     "Grocery",
+|     "Furniture"
+| ];
+|
+| const subCategories = {
+|     "Electronics": ["Headphones", "Smartwatch", "Camera", "Speaker"],
+|     "Mobiles": ["Android", "iPhone", "Feature Phone"],
+|     "Laptops": ["Gaming", "Business", "Student"],
+|     "Home Appliances": ["Refrigerator", "Washing Machine", "Microwave"],
+|     "Fashion": ["Men", "Women", "Kids"],
+|     "Books": ["Programming", "Fiction", "Education"],
+|     "Sports": ["Cricket", "Football", "Fitness"],
+|     "Beauty": ["Skincare", "Haircare", "Makeup"],
+|     "Grocery": ["Snacks", "Beverages", "Staples"],
+|     "Furniture": ["Chair", "Table", "Sofa"]
+| };
+|
+| const brands = [
+|     "Samsung",
+|     "Apple",
+|     "Sony",
+|     "LG",
+|     "HP",
+|     "Dell",
+|     "Lenovo",
+|     "Nike",
+|     "Adidas",
+|     "Boat",
+|     "OnePlus",
+|     "AmazonBasics"
+| ];
+|
+| const cities = [
+|     "Chennai",
+|     "Coimbatore",
+|     "Bangalore",
+|     "Hyderabad",
+|     "Mumbai",
+|     "Delhi",
+|     "Pune",
+|     "Kochi",
+|     "Kolkata",
+|     "Ahmedabad"
+| ];
+|
+| const states = [
+|     "Tamil Nadu",
+|     "Karnataka",
+|     "Telangana",
+|     "Maharashtra",
+|     "Delhi",
+|     "Kerala",
+|     "West Bengal",
+|     "Gujarat"
+| ];
+|
+| const paymentMethods = [
+|     "UPI",
+|     "Credit Card",
+|     "Debit Card",
+|     "Net Banking",
+|     "Cash on Delivery"
+| ];
+|
+| const orderStatuses = [
+|     "Delivered",
+|     "Shipped",
+|     "Processing",
+|     "Cancelled",
+|     "Returned"
+| ];
+|
+| const sellers = [
+|     "RetailHub",
+|     "TechWorld",
+|     "MegaStore",
+|     "DigitalMart",
+|     "SmartShop",
+|     "PrimeRetail"
+| ];
+|
+| const tags = [
+|     "new",
+|     "popular",
+|     "trending",
+|     "premium",
+|     "budget",
+|     "best-seller",
+|     "discount",
+|     "limited-stock"
+| ];
+|
+|
+| // Store documents temporarily
+| let documents = [];
+|
+|
+| // Generate 5000 documents
+| for (let i = 1; i <= 5000; i++) {
+|
+|     const category =
+|         categories[Math.floor(Math.random() * categories.length)];
+|
+|     const subCategory =
+|         subCategories[category][
+|             Math.floor(Math.random() * subCategories[category].length)
+|         ];
+|
+|     const brand =
+|         brands[Math.floor(Math.random() * brands.length)];
+|
+|     const city =
+|         cities[Math.floor(Math.random() * cities.length)];
+|
+|     const state =
+|         states[Math.floor(Math.random() * states.length)];
+|
+|     const paymentMethod =
+|         paymentMethods[
+|             Math.floor(Math.random() * paymentMethods.length)
+|         ];
+|
+|     const orderStatus =
+|         orderStatuses[
+|             Math.floor(Math.random() * orderStatuses.length)
+|         ];
+|
+|     const seller =
+|         sellers[
+|             Math.floor(Math.random() * sellers.length)
+|         ];
+|
+|
+|     const quantity =
+|         Math.floor(Math.random() * 5) + 1;
+|
+|     const price =
+|         Math.floor(Math.random() * 95000) + 500;
+|
+|     const discount =
+|         Math.floor(Math.random() * 51);
+|
+|     const discountedPrice =
+|         Math.round(
+|             price - (price * discount / 100)
+|         );
+|
+|     const rating =
+|         Number(
+|             (Math.random() * 4 + 1).toFixed(1)
+|         );
+|
+|     const stock =
+|         Math.floor(Math.random() * 500);
+|
+|
+|     // Generate 2 random tags
+|     const selectedTags = [];
+|
+|     for (let j = 0; j < 2; j++) {
+|
+|         selectedTags.push(
+|             tags[Math.floor(Math.random() * tags.length)]
+|         );
+|     }
+|
+|
+|     // Random date between 2024 and 2026
+|     const startDate =
+|         new Date("2024-01-01").getTime();
+|
+|     const endDate =
+|         new Date("2026-08-25").getTime();
+|
+|     const randomDate =
+|         new Date(
+|             startDate +
+|             Math.random() * (endDate - startDate)
+|         );
+|
+|
+|     // Create document
+|     const product = {
+|
+|         productId:
+|             "PROD" + String(i).padStart(5, "0"),
+|
+|         productName:
+|             brand + " " + subCategory + " " + i,
+|
+|         category: category,
+|
+|         subCategory: subCategory,
+|
+|         brand: brand,
+|
+|         price: price,
+|
+|         discountPercentage: discount,
+|
+|         discountedPrice: discountedPrice,
+|
+|         quantity: quantity,
+|
+|         revenue:
+|             discountedPrice * quantity,
+|
+|         rating: rating,
+|
+|         reviewCount:
+|             Math.floor(Math.random() * 5000),
+|
+|         stock: stock,
+|
+|         inStock:
+|             stock > 0,
+|
+|
+|         seller: {
+|
+|             name: seller,
+|
+|             sellerRating:
+|                 Number(
+|                     (Math.random() * 4 + 1).toFixed(1)
+|                 )
+|         },
+|
+|
+|         customer: {
+|
+|             customerId:
+|                 "CUS" +
+|                 String(
+|                     Math.floor(Math.random() * 1000) + 1
+|                 ).padStart(4, "0"),
+|
+|             city: city,
+|
+|             state: state,
+|
+|             age:
+|                 Math.floor(Math.random() * 50) + 18
+|         },
+|
+|
+|         payment: {
+|
+|             method: paymentMethod,
+|
+|             transactionId:
+|                 "TXN" +
+|                 Math.random()
+|                     .toString(36)
+|                     .substring(2, 12)
+|         },
+|
+|
+|         orderStatus: orderStatus,
+|
+|         orderDate: randomDate,
+|
+|         tags: selectedTags,
+|
+|
+|         specifications: {
+|
+|             warranty:
+|                 (Math.floor(Math.random() * 3) + 1) +
+|                 " years",
+|
+|             color: [
+|                 "Black",
+|                 "White",
+|                 "Blue",
+|                 "Red",
+|                 "Silver"
+|             ][Math.floor(Math.random() * 5)],
+|
+|             weight:
+|                 Number(
+|                     (Math.random() * 5 + 0.5).toFixed(2)
+|                 )
+|         },
+|
+|
+|         isFeatured:
+|             Math.random() > 0.7,
+|
+|         createdAt: new Date()
+|     };
+|
+|
+|     documents.push(product);
+|
+|
+|     // Insert every 500 documents
+|     if (documents.length === 500) {
+|
+|         db.aggex.insertMany(documents);
+|
+|         documents = [];
+|     }
+| }
+|
+| // Insert remaining documents
+| if (documents.length > 0) {
+|
+|     db.aggex.insertMany(documents);
+| }
+| print("5000 documents inserted successfully into aggex!");
+5000 documents inserted successfully into aggex!
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aggex.find({})
+[
+  {
+    _id: ObjectId('6aa1052e17689699174b233a'),
+    productId: 'PROD00001',
+    productName: 'OnePlus Chair 1',
+    category: 'Furniture',
+    subCategory: 'Chair',
+    brand: 'OnePlus',
+    price: 25629,
+    discountPercentage: 12,
+    discountedPrice: 22554,
+    quantity: 5,
+    revenue: 112770,
+    rating: 4.2,
+    reviewCount: 49,
+    stock: 486,
+    inStock: true,
+    seller: { name: 'PrimeRetail', sellerRating: 1.3 },
+    customer: {
+      customerId: 'CUS0184',
+      city: 'Bangalore',
+      state: 'Maharashtra',
+      age: 39
+    },
+    payment: { method: 'Credit Card', transactionId: 'TXN9cjhj80i97' },
+    orderStatus: 'Returned',
+    orderDate: ISODate('2025-08-31T04:03:35.985Z'),
+    tags: [ 'budget', 'discount' ],
+    specifications: { warranty: '1 years', color: 'Blue', weight: 5.49 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.801Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b233b'),
+    productId: 'PROD00002',
+    productName: 'OnePlus Kids 2',
+    category: 'Fashion',
+    subCategory: 'Kids',
+    brand: 'OnePlus',
+    price: 24023,
+    discountPercentage: 13,
+    discountedPrice: 20900,
+    quantity: 3,
+    revenue: 62700,
+    rating: 4.5,
+    reviewCount: 700,
+    stock: 181,
+    inStock: true,
+    seller: { name: 'RetailHub', sellerRating: 3.5 },
+    customer: { customerId: 'CUS0616', city: 'Delhi', state: 'Maharashtra', age: 33 },
+    payment: { method: 'Net Banking', transactionId: 'TXNzpnqx6wau9' },
+    orderStatus: 'Delivered',
+    orderDate: ISODate('2026-07-20T19:24:27.002Z'),
+    tags: [ 'premium', 'discount' ],
+    specifications: { warranty: '3 years', color: 'White', weight: 0.73 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.801Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b233c'),
+    productId: 'PROD00003',
+    productName: 'LG Business 3',
+    category: 'Laptops',
+    subCategory: 'Business',
+    brand: 'LG',
+    price: 32806,
+    discountPercentage: 12,
+    discountedPrice: 28869,
+    quantity: 3,
+    revenue: 86607,
+    rating: 3.2,
+    reviewCount: 3071,
+    stock: 353,
+    inStock: true,
+    seller: { name: 'RetailHub', sellerRating: 2.3 },
+    customer: { customerId: 'CUS0470', city: 'Hyderabad', state: 'Delhi', age: 51 },
+    payment: { method: 'Debit Card', transactionId: 'TXN6mu5wtmhg5' },
+    orderStatus: 'Cancelled',
+    orderDate: ISODate('2024-02-03T00:11:32.774Z'),
+    tags: [ 'trending', 'new' ],
+    specifications: { warranty: '3 years', color: 'Silver', weight: 3.38 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.801Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b233d'),
+    productId: 'PROD00004',
+    productName: 'AmazonBasics Android 4',
+    category: 'Mobiles',
+    subCategory: 'Android',
+    brand: 'AmazonBasics',
+    price: 20576,
+    discountPercentage: 49,
+    discountedPrice: 10494,
+    quantity: 5,
+    revenue: 52470,
+    rating: 1.4,
+    reviewCount: 3858,
+    stock: 114,
+    inStock: true,
+    seller: { name: 'DigitalMart', sellerRating: 3.8 },
+    customer: { customerId: 'CUS0740', city: 'Mumbai', state: 'Karnataka', age: 27 },
+    payment: { method: 'Debit Card', transactionId: 'TXNntrw2w6ei9' },
+    orderStatus: 'Cancelled',
+    orderDate: ISODate('2025-03-11T02:25:39.361Z'),
+    tags: [ 'limited-stock', 'trending' ],
+    specifications: { warranty: '3 years', color: 'Red', weight: 3.55 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.801Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b233e'),
+    productId: 'PROD00005',
+    productName: 'HP Fitness 5',
+    category: 'Sports',
+    subCategory: 'Fitness',
+    brand: 'HP',
+    price: 30925,
+    discountPercentage: 19,
+    discountedPrice: 25049,
+    quantity: 1,
+    revenue: 25049,
+    rating: 2.8,
+    reviewCount: 4293,
+    stock: 66,
+    inStock: true,
+    seller: { name: 'TechWorld', sellerRating: 2.8 },
+    customer: { customerId: 'CUS0937', city: 'Kochi', state: 'Delhi', age: 24 },
+    payment: { method: 'Debit Card', transactionId: 'TXN0l3clatjcm' },
+    orderStatus: 'Delivered',
+    orderDate: ISODate('2025-11-27T20:48:45.349Z'),
+    tags: [ 'best-seller', 'budget' ],
+    specifications: { warranty: '2 years', color: 'White', weight: 4.91 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b233f'),
+    productId: 'PROD00006',
+    productName: 'Boat Haircare 6',
+    category: 'Beauty',
+    subCategory: 'Haircare',
+    brand: 'Boat',
+    price: 65075,
+    discountPercentage: 48,
+    discountedPrice: 33839,
+    quantity: 2,
+    revenue: 67678,
+    rating: 4.2,
+    reviewCount: 4588,
+    stock: 23,
+    inStock: true,
+    seller: { name: 'RetailHub', sellerRating: 3.5 },
+    customer: {
+      customerId: 'CUS0201',
+      city: 'Coimbatore',
+      state: 'Karnataka',
+      age: 37
+    },
+    payment: { method: 'Cash on Delivery', transactionId: 'TXNlknt833ify' },
+    orderStatus: 'Cancelled',
+    orderDate: ISODate('2024-01-05T15:53:13.778Z'),
+    tags: [ 'limited-stock', 'new' ],
+    specifications: { warranty: '2 years', color: 'Black', weight: 4.88 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2340'),
+    productId: 'PROD00007',
+    productName: 'Boat Gaming 7',
+    category: 'Laptops',
+    subCategory: 'Gaming',
+    brand: 'Boat',
+    price: 49070,
+    discountPercentage: 34,
+    discountedPrice: 32386,
+    quantity: 5,
+    revenue: 161930,
+    rating: 3.6,
+    reviewCount: 213,
+    stock: 365,
+    inStock: true,
+    seller: { name: 'MegaStore', sellerRating: 3.4 },
+    customer: { customerId: 'CUS0562', city: 'Chennai', state: 'Kerala', age: 32 },
+    payment: { method: 'Credit Card', transactionId: 'TXN6ympy3ptn4' },
+    orderStatus: 'Returned',
+    orderDate: ISODate('2024-06-25T23:29:40.418Z'),
+    tags: [ 'best-seller', 'premium' ],
+    specifications: { warranty: '3 years', color: 'Red', weight: 1.64 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2341'),
+    productId: 'PROD00008',
+    productName: 'OnePlus Washing Machine 8',
+    category: 'Home Appliances',
+    subCategory: 'Washing Machine',
+    brand: 'OnePlus',
+    price: 30915,
+    discountPercentage: 31,
+    discountedPrice: 21331,
+    quantity: 3,
+    revenue: 63993,
+    rating: 4.6,
+    reviewCount: 3091,
+    stock: 101,
+    inStock: true,
+    seller: { name: 'RetailHub', sellerRating: 3 },
+    customer: { customerId: 'CUS0069', city: 'Delhi', state: 'West Bengal', age: 62 },
+    payment: { method: 'Credit Card', transactionId: 'TXN1tg49gtvz4' },
+    orderStatus: 'Shipped',
+    orderDate: ISODate('2025-12-12T05:59:52.446Z'),
+    tags: [ 'popular', 'premium' ],
+    specifications: { warranty: '1 years', color: 'Black', weight: 5 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2342'),
+    productId: 'PROD00009',
+    productName: 'Dell Football 9',
+    category: 'Sports',
+    subCategory: 'Football',
+    brand: 'Dell',
+    price: 12487,
+    discountPercentage: 22,
+    discountedPrice: 9740,
+    quantity: 2,
+    revenue: 19480,
+    rating: 3.6,
+    reviewCount: 2556,
+    stock: 90,
+    inStock: true,
+    seller: { name: 'RetailHub', sellerRating: 1.5 },
+    customer: {
+      customerId: 'CUS0529',
+      city: 'Hyderabad',
+      state: 'Maharashtra',
+      age: 19
+    },
+    payment: { method: 'Debit Card', transactionId: 'TXNwlh2kxwxqh' },
+    orderStatus: 'Delivered',
+    orderDate: ISODate('2024-08-25T11:32:35.932Z'),
+    tags: [ 'limited-stock', 'premium' ],
+    specifications: { warranty: '2 years', color: 'Black', weight: 3.96 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2343'),
+    productId: 'PROD00010',
+    productName: 'Dell Snacks 10',
+    category: 'Grocery',
+    subCategory: 'Snacks',
+    brand: 'Dell',
+    price: 24530,
+    discountPercentage: 17,
+    discountedPrice: 20360,
+    quantity: 2,
+    revenue: 40720,
+    rating: 3,
+    reviewCount: 3588,
+    stock: 246,
+    inStock: true,
+    seller: { name: 'DigitalMart', sellerRating: 2.1 },
+    customer: { customerId: 'CUS0566', city: 'Kochi', state: 'Gujarat', age: 58 },
+    payment: { method: 'Credit Card', transactionId: 'TXN8mvl3g6lsd' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2026-07-30T03:38:00.834Z'),
+    tags: [ 'limited-stock', 'budget' ],
+    specifications: { warranty: '3 years', color: 'White', weight: 3.28 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2344'),
+    productId: 'PROD00011',
+    productName: 'Nike Fitness 11',
+    category: 'Sports',
+    subCategory: 'Fitness',
+    brand: 'Nike',
+    price: 8988,
+    discountPercentage: 15,
+    discountedPrice: 7640,
+    quantity: 2,
+    revenue: 15280,
+    rating: 3.2,
+    reviewCount: 1248,
+    stock: 312,
+    inStock: true,
+    seller: { name: 'PrimeRetail', sellerRating: 2.7 },
+    customer: { customerId: 'CUS0436', city: 'Bangalore', state: 'Gujarat', age: 52 },
+    payment: { method: 'Cash on Delivery', transactionId: 'TXNr4meyic3iw' },
+    orderStatus: 'Shipped',
+    orderDate: ISODate('2026-02-10T00:46:15.500Z'),
+    tags: [ 'trending', 'limited-stock' ],
+    specifications: { warranty: '3 years', color: 'Red', weight: 4.25 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2345'),
+    productId: 'PROD00012',
+    productName: 'HP Snacks 12',
+    category: 'Grocery',
+    subCategory: 'Snacks',
+    brand: 'HP',
+    price: 43646,
+    discountPercentage: 42,
+    discountedPrice: 25315,
+    quantity: 2,
+    revenue: 50630,
+    rating: 2.2,
+    reviewCount: 1229,
+    stock: 312,
+    inStock: true,
+    seller: { name: 'DigitalMart', sellerRating: 1.8 },
+    customer: { customerId: 'CUS0895', city: 'Kolkata', state: 'Karnataka', age: 26 },
+    payment: { method: 'Debit Card', transactionId: 'TXNu6589nkxs4' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2024-01-27T03:34:11.614Z'),
+    tags: [ 'popular', 'new' ],
+    specifications: { warranty: '1 years', color: 'Black', weight: 3.01 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2346'),
+    productId: 'PROD00013',
+    productName: 'OnePlus Cricket 13',
+    category: 'Sports',
+    subCategory: 'Cricket',
+    brand: 'OnePlus',
+    price: 64730,
+    discountPercentage: 6,
+    discountedPrice: 60846,
+    quantity: 3,
+    revenue: 182538,
+    rating: 3.7,
+    reviewCount: 1832,
+    stock: 42,
+    inStock: true,
+    seller: { name: 'DigitalMart', sellerRating: 4 },
+    customer: { customerId: 'CUS0059', city: 'Kochi', state: 'Karnataka', age: 42 },
+    payment: { method: 'Cash on Delivery', transactionId: 'TXN52yuyotlmh' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2025-05-09T05:53:25.631Z'),
+    tags: [ 'discount', 'new' ],
+    specifications: { warranty: '3 years', color: 'Silver', weight: 4.43 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2347'),
+    productId: 'PROD00014',
+    productName: 'AmazonBasics Fitness 14',
+    category: 'Sports',
+    subCategory: 'Fitness',
+    brand: 'AmazonBasics',
+    price: 21652,
+    discountPercentage: 15,
+    discountedPrice: 18404,
+    quantity: 3,
+    revenue: 55212,
+    rating: 2,
+    reviewCount: 3157,
+    stock: 138,
+    inStock: true,
+    seller: { name: 'RetailHub', sellerRating: 3.9 },
+    customer: {
+      customerId: 'CUS0464',
+      city: 'Kolkata',
+      state: 'Tamil Nadu',
+      age: 55
+    },
+    payment: { method: 'Net Banking', transactionId: 'TXNhz4c2knqh3' },
+    orderStatus: 'Delivered',
+    orderDate: ISODate('2024-06-13T04:57:24.199Z'),
+    tags: [ 'discount', 'popular' ],
+    specifications: { warranty: '1 years', color: 'Blue', weight: 1.36 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2348'),
+    productId: 'PROD00015',
+    productName: 'Boat Gaming 15',
+    category: 'Laptops',
+    subCategory: 'Gaming',
+    brand: 'Boat',
+    price: 64400,
+    discountPercentage: 50,
+    discountedPrice: 32200,
+    quantity: 1,
+    revenue: 32200,
+    rating: 3,
+    reviewCount: 2743,
+    stock: 109,
+    inStock: true,
+    seller: { name: 'PrimeRetail', sellerRating: 1.1 },
+    customer: { customerId: 'CUS0751', city: 'Bangalore', state: 'Delhi', age: 64 },
+    payment: { method: 'Cash on Delivery', transactionId: 'TXN81kooqc8mj' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2026-01-08T01:11:06.714Z'),
+    tags: [ 'budget', 'trending' ],
+    specifications: { warranty: '2 years', color: 'Blue', weight: 2.82 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b2349'),
+    productId: 'PROD00016',
+    productName: 'OnePlus Men 16',
+    category: 'Fashion',
+    subCategory: 'Men',
+    brand: 'OnePlus',
+    price: 42516,
+    discountPercentage: 47,
+    discountedPrice: 22533,
+    quantity: 3,
+    revenue: 67599,
+    rating: 1.9,
+    reviewCount: 3723,
+    stock: 136,
+    inStock: true,
+    seller: { name: 'SmartShop', sellerRating: 3.6 },
+    customer: { customerId: 'CUS0324', city: 'Kochi', state: 'Karnataka', age: 49 },
+    payment: { method: 'UPI', transactionId: 'TXN1lvesflk8w' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2024-09-22T09:37:50.607Z'),
+    tags: [ 'discount', 'premium' ],
+    specifications: { warranty: '2 years', color: 'Silver', weight: 3.41 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b234a'),
+    productId: 'PROD00017',
+    productName: 'Samsung Fiction 17',
+    category: 'Books',
+    subCategory: 'Fiction',
+    brand: 'Samsung',
+    price: 63655,
+    discountPercentage: 37,
+    discountedPrice: 40103,
+    quantity: 2,
+    revenue: 80206,
+    rating: 1.3,
+    reviewCount: 1568,
+    stock: 376,
+    inStock: true,
+    seller: { name: 'MegaStore', sellerRating: 3.3 },
+    customer: { customerId: 'CUS0181', city: 'Mumbai', state: 'Gujarat', age: 56 },
+    payment: { method: 'UPI', transactionId: 'TXN5glxy8i1cm' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2025-10-07T04:59:53.667Z'),
+    tags: [ 'best-seller', 'budget' ],
+    specifications: { warranty: '2 years', color: 'White', weight: 1.14 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b234b'),
+    productId: 'PROD00018',
+    productName: 'AmazonBasics Haircare 18',
+    category: 'Beauty',
+    subCategory: 'Haircare',
+    brand: 'AmazonBasics',
+    price: 78429,
+    discountPercentage: 36,
+    discountedPrice: 50195,
+    quantity: 1,
+    revenue: 50195,
+    rating: 4.8,
+    reviewCount: 1465,
+    stock: 311,
+    inStock: true,
+    seller: { name: 'TechWorld', sellerRating: 2.7 },
+    customer: { customerId: 'CUS0698', city: 'Chennai', state: 'Delhi', age: 22 },
+    payment: { method: 'Credit Card', transactionId: 'TXNi8d7nw2dyo' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2025-08-16T00:39:10.552Z'),
+    tags: [ 'trending', 'budget' ],
+    specifications: { warranty: '1 years', color: 'Blue', weight: 3.81 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b234c'),
+    productId: 'PROD00019',
+    productName: 'Adidas Women 19',
+    category: 'Fashion',
+    subCategory: 'Women',
+    brand: 'Adidas',
+    price: 63081,
+    discountPercentage: 25,
+    discountedPrice: 47311,
+    quantity: 2,
+    revenue: 94622,
+    rating: 4.1,
+    reviewCount: 3464,
+    stock: 391,
+    inStock: true,
+    seller: { name: 'DigitalMart', sellerRating: 2.1 },
+    customer: { customerId: 'CUS0021', city: 'Kochi', state: 'West Bengal', age: 34 },
+    payment: { method: 'UPI', transactionId: 'TXN5zyi64gpgu' },
+    orderStatus: 'Delivered',
+    orderDate: ISODate('2024-02-12T11:21:29.106Z'),
+    tags: [ 'premium', 'popular' ],
+    specifications: { warranty: '3 years', color: 'White', weight: 4.46 },
+    isFeatured: true,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  },
+  {
+    _id: ObjectId('6aa1052e17689699174b234d'),
+    productId: 'PROD00020',
+    productName: 'Dell Microwave 20',
+    category: 'Home Appliances',
+    subCategory: 'Microwave',
+    brand: 'Dell',
+    price: 75024,
+    discountPercentage: 3,
+    discountedPrice: 72773,
+    quantity: 3,
+    revenue: 218319,
+    rating: 1.3,
+    reviewCount: 180,
+    stock: 383,
+    inStock: true,
+    seller: { name: 'TechWorld', sellerRating: 3.3 },
+    customer: {
+      customerId: 'CUS0956',
+      city: 'Chennai',
+      state: 'West Bengal',
+      age: 22
+    },
+    payment: { method: 'UPI', transactionId: 'TXN2a9cfso1yl' },
+    orderStatus: 'Processing',
+    orderDate: ISODate('2025-03-21T07:03:53.147Z'),
+    tags: [ 'best-seller', 'premium' ],
+    specifications: { warranty: '2 years', color: 'Red', weight: 4.6 },
+    isFeatured: false,
+    createdAt: ISODate('2026-09-09T07:05:18.802Z')
+  }
+]
+Type "it" for more
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aggex.aggregate([ { $group: { _id: "category"}}])
+[ { _id: 'category' } ]
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aggex.aggregate([ { $group: { _id: "category"} } ])
+[ { _id: 'category' } ]
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aggex.aggregate([ { $group: { _id: "$category"}}])
+[
+  { _id: 'Furniture' },
+  { _id: 'Sports' },
+  { _id: 'Fashion' },
+  { _id: 'Beauty' },
+  { _id: 'Books' },
+  { _id: 'Grocery' },
+  { _id: 'Laptops' },
+  { _id: 'Mobiles' },
+  { _id: 'Electronics' },
+  { _id: 'Home Appliances' }
+]
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([{ $group:{_id: "$brand"}}])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+[
+  { _id: 'Samsung' },
+  { _id: 'Adidas' },
+  { _id: 'HP' },
+  { _id: 'Dell' },
+  { _id: 'Apple' },
+  { _id: 'Lenovo' },
+  { _id: 'OnePlus' },
+  { _id: 'Sony' },
+  { _id: 'AmazonBasics' },
+  { _id: 'Boat' },
+  { _id: 'Nike' },
+  { _id: 'LG' }
+]
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([{ $group:{_id: "$brand"}}])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([{ $group:{ _id: "$brand"}}])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([{ $group:{_id: "$brand"}}])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([{ $group:{ _id: "$brand"}}])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([ { $group:{_id: "$brand"}} ])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex> db.aagex.aggregate([ { $group: {_id: "$brand"}} ])
+
+Atlas atlas-xawl8m-shard-0 [primary] aggex>  db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+ db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+
+Uncaught:
+MongoServerSelectionError: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Caused by:
+MongoNetworkError: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Caused by:
+Error: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Atlas atlas-xawl8m-shard-0 [secondary] aggex>  db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+
+ db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+Uncaught:
+MongoServerSelectionError: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Caused by:
+MongoNetworkError: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Caused by:
+Error: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Atlas atlas-xawl8m-shard-0 [secondary] aggex>
+
+Atlas atlas-xawl8m-shard-0 [secondary] aggex>
+
+Atlas atlas-xawl8m-shard-0 [secondary] aggex>  db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+Uncaught:
+MongoServerSelectionError: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Caused by:
+MongoNetworkError: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Caused by:
+Error: getaddrinfo ENOTFOUND ac-t8w6wvq-shard-00-00.2fwrwg0.mongodb.net
+Atlas atlas-xawl8m-shard-0 [secondary] aggex>
+
+Atlas atlas-xawl8m-shard-0 [secondary] aggex>  db.aggex.aggregate([ { $group: { _id: "$brand"}}])
+
+[
+  { _id: 'Dell' },
+  { _id: 'Boat' },
+  { _id: 'LG' },
+  { _id: 'Nike' },
+  { _id: 'Samsung' },
+  { _id: 'Apple' },
+  { _id: 'Lenovo' },
+  { _id: 'AmazonBasics' },
+  { _id: 'Adidas' },
+  { _id: 'Sony' },
+  { _id: 'OnePlus' },
+  { _id: 'HP' }
+]
+Atlas atlas-xawl8m-shard-0 [primary] aggex>
